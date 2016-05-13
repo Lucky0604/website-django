@@ -4,20 +4,27 @@ from django.utils import timezone
 #
 class Company(models.Model):
     tag = models.CharField(max_length = 200)
-
+    tagline = models.TextField()
     def __str__(self):
         return self.tag
 
-class Post(models.Model):
-    author = models.CharField(max_length = 200)
-    company = models.ForeignKey(Company)
-    title = models.CharField(max_length = 200)
-    content = models.TextField()
+class Author(models.Model):
+    name = models.CharField(max_length = 50)
+    email = models.EmailField()
+
+    def __str__(self):
+        return self.name
+
+class Content(models.Model):
+    company_name = models.ForeignKey(Company)
+    headline = models.CharField(max_length = 255)
+    body_text = models.TextField()
     created_date = models.DateTimeField(default = timezone.now())
-    published_date = models.DateTimeField(blank = True, null = True)
+    pub_date = models.DateTimeField(blank = True, null = True)
+    authors = models.ManyToManyField(Author)
 
     def publish(self):
-        self.published_date = timezone.now()
+        self.pub_date = timezone.now()
         self.save()
 
     def __str__(self):

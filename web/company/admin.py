@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Company, Post
+from .models import Company, Author, Content
 # Register your models here.
 admin.site.register(Company)
-admin.site.register(Post)
+admin.site.register(Author)
+admin.site.register(Content)
