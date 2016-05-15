@@ -1,10 +1,13 @@
 {%extends 'index.html'%}
 
 {%block content%}
-{% for company in companys %}
-{{company.tag}}
-{{company.id}}
-{%endfor%}
+<iframe src="main/company/main_list.html">
+    {% for company in companys %}
+    {{company.tag}}
+    {{company.id}}
+    {%endfor%}
+</iframe>
+
 
 <br/>
 ----------------------------------------------------
