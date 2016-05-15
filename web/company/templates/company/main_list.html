@@ -1,17 +1,13 @@
-{%extends 'index.html'%}
+{% extends 'index.html' %}
 
 {%block content%}
 {% for company in companys %}
-{{company.tag}}
+<a>{{company.tag}}</a>
 {{company.id}}
 {%endfor%}
 
 <br/>
 ----------------------------------------------------
-</br/>
 
-{% for content in contents %}
-{{content.body_text}}
-{{content.company_name.id}}
-{%endfor%}
+
 {%endblock content%}
