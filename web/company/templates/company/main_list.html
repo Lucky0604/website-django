@@ -1,13 +1,20 @@
 {% extends 'index.html' %}
 
 {%block content%}
-{% for company in companys %}
-<a>{{company.tag}}</a>
-{{company.id}}
-{%endfor%}
+
+<ul class="nav nav-tabs" role="tablist">
+    {% for company in companys %}
+    <li role="presentation"><a href="#{{company.id}}" aria-controls="{{company.id}}" role="tab" data-toggle="tab">{{company.tag}}</a></li>
+    {%endfor%}
+</ul>
+
 
 <br/>
 ----------------------------------------------------
-
+<div class="tab-content">
+    {% for content in contents%}
+    <div class="tab-pane active" id="{{content.company.id}}">{{content.body_text}}</div>
+    {% endfor %}
+</div>
 
 {%endblock content%}
