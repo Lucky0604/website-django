@@ -1,9 +1,6 @@
 from django.db import models
 from django.utils import timezone
 # Create your models here.
-
-
-
 class Company(models.Model):
     tag = models.CharField(max_length = 200)
     tagline = models.TextField()
