@@ -1,7 +1,9 @@
 from django.db import models
 from django.utils import timezone
 # Create your models here.
-#
+
+
+
 class Company(models.Model):
     tag = models.CharField(max_length = 200)
     tagline = models.TextField()
@@ -9,6 +11,7 @@ class Company(models.Model):
     class Meta:
         verbose_name = '公司名称'
         verbose_name_plural = '公司名称'
+
 
     def __str__(self):
         return self.tag
@@ -20,6 +23,7 @@ class Author(models.Model):
     class Meta:
         verbose_name = '作者'
         verbose_name_plural = '作者'
+
 
     def __str__(self):
         return self.name
