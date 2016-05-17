@@ -12,16 +12,6 @@ class Company(models.Model):
     def __str__(self):
         return self.tag
 
-class Author(models.Model):
-    name = models.CharField(max_length = 50)
-    email = models.EmailField()
-
-    class Meta:
-        verbose_name = '作者'
-        verbose_name_plural = '作者'
-
-    def __str__(self):
-        return self.name
 
 class Content(models.Model):
     company_name = models.ForeignKey(Company)
@@ -29,7 +19,6 @@ class Content(models.Model):
     body_text = models.TextField()
     created_date = models.DateTimeField(default = timezone.now())
     pub_date = models.DateTimeField(blank = True, null = True)
-    authors = models.ManyToManyField(Author)
 
     class Meta:
         verbose_name = '文章'
