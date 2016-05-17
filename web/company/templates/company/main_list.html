@@ -20,7 +20,7 @@
     <div class="tab-pane" id="{{company.id}}">
         {%for content in contents%}
             {% if content.company_name.id == company.id%}
-            {{content.body_text}}
+        <a href="{% url 'main_detail' pk=content.pk%}">{{content.headline}}</a>
             {%endif%}
         {%endfor%}
     </div>

@@ -10,3 +10,7 @@ def main_list(request):
     companys = Company.objects.all()
     contents = Content.objects.all()
     return render(request, 'company/main_list.html', {'companys': companys, 'contents': contents})
+
+def main_detail(request, pk):
+    content = get_object_or_404(Content, pk = pk)
+    return render(request, 'company/main_detail.html', {'content': content})

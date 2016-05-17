@@ -1,1 +1,26 @@
-intro
+{% extends 'index.html' %}
+
+{% block content%}
+
+<ul class="nav nav-tabs" role="tablist">
+    {% for company in companys %}
+    <li role="presentation"><a href="#{{company.id}}" aria-controls="{{company.id}}" role="tab" data-toggle="tab">{{company.tag}}</a></li>
+    {%endfor%}
+</ul>
+
+
+<br/>
+----------------------------------------------------
+<div class="tab-content">
+    {% for company in companys%}
+    <div class="tab-pane" id="{{company.id}}">
+        {%for content in contents%}
+            {% if content.company_name.id == company.id%}
+            {{content.body_text}}
+            {%endif%}
+        {%endfor%}
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock content%}
