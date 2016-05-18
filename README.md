@@ -36,3 +36,33 @@ django1.9后
 在mysql中创建数据库时，应设置编码`(windows下可使用mysql unicode bash创建，linux下用terminal创建数据库需设置编码)`:
 
     CREATE DATABASE (DATABASE NAME) CHARACTER SET utf8;
+
+#### 四，上传图片
+django 1.8，在模型中（admin app），首先安装Pillow，3.x无法安装
+
+    pip install Pillow==2.8.0
+    
+app中models创建图片模型
+
+    // models.py
+    class ProductImg(models.Model):
+        img = models.ImageField(upload_to='company/')   # 图片上传到media_root下的company文件夹
+project中设置图片文件路径
+
+    // settings.py
+    MEDIA_ROOT = os.path.join(BASE_DIR，'media')
+    MEDIA_URL = '/media/'
+    
+意思为在project同目录文件夹中创建media文件夹存放图片或其他文件
+
+    // project目录中settings.py
+    from django.conf.urls.static import static
+    from django.conf import settings
+    urlpatterns = [
+        ...
+    ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    
+templates中显示图片
+    
+    // template.html
+    <img src="media/{{img.img.url}}" />

@@ -47,3 +47,7 @@ class Content(models.Model):
 
 class CompanyImage(models.Model):
     image1 = models.ImageField(upload_to='company/')
+    headline = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.headline
