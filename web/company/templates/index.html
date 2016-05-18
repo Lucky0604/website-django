@@ -48,6 +48,9 @@
             </ul>
         </nav>
     </div>
+    {% for item in img %}
+    <img src="media/{{item.image1}}" alt="">
+    {% endfor %}
 
     {%block content%}
     <!-- Jumbotron -->

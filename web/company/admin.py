@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils import timezone
-from .models import Company, Author, Content
+from .models import Company, Author, Content, CompanyImage
 # Register your models here.
 
 class CompanyAdmin(admin.ModelAdmin):
@@ -15,3 +15,4 @@ class ContentAdmin(admin.ModelAdmin):
 admin.site.register(Company, CompanyAdmin)
 admin.site.register(Author, AuthorAdmin)
 admin.site.register(Content, ContentAdmin)
+admin.site.register(CompanyImage)

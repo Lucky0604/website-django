@@ -44,3 +44,6 @@ class Content(models.Model):
 
     def __str__(self):
         return self.headline
+
+class CompanyImage(models.Model):
+    image1 = models.ImageField(upload_to='company/')

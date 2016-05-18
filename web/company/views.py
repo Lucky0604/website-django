@@ -1,10 +1,11 @@
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
-from .models import Company, Author, Content
+from .models import Company, Author, Content, CompanyImage
 # Create your views here.
 
 def index(request):
-    return render(request, 'index.html', {})
+    img = CompanyImage.objects.all()
+    return render(request, 'index.html', {'img': img})
 
 def main_list(request):
     companys = Company.objects.all()
