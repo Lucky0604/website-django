@@ -6,4 +6,5 @@ urlpatterns = [
     # url(r'^main/', views.main_list, name = 'main_list'),
     url(r'^main_list/$', views.main_list, name = 'main_list'),
     url(r'^main_list/(?P<pk>[0-9]+)/$', views.main_detail, name = 'main_detail'),
+    # url(r'^content_list/(?P<pk>[0-9]+/$', views.content_list, name = 'content_list')
 ]
