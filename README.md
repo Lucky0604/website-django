@@ -66,3 +66,8 @@ templates中显示图片
     
     // template.html
     <img src="media/{{img.img.url}}" />
+    
+#### TODOLIST:
+1，根据公司列表点击相应的公司名称才渲染出与该名称对应的新闻列表，不使用TAB切换，避免数据一次性输出全部
+2，admin中TextField集成符文本编辑器
+3，增加新闻列表分页
