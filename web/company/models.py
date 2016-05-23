@@ -5,7 +5,8 @@ from django.utils import timezone
 
 
 class Company(models.Model):
-    tag = models.CharField(max_length = 200)
+    companyid = models.IntegerField(primary_key=True, unique=True)
+    company_name = models.CharField(max_length = 200)
     tagline = models.TextField()
 
     class Meta:
@@ -16,7 +17,7 @@ class Company(models.Model):
         return self.tag
 
 class Author(models.Model):
-    name = models.CharField(max_length = 50)
+    author_name = models.CharField(max_length = 50)
     email = models.EmailField()
 
     class Meta:
@@ -27,7 +28,7 @@ class Author(models.Model):
         return self.name
 
 class Content(models.Model):
-    company_name = models.ForeignKey(Company)
+    company_name = models.ForeignKey(Company, to_field='companyid', db_column='company_name')
     headline = models.CharField(max_length = 255)
     body_text = models.TextField()
     created_date = models.DateTimeField(default = timezone.now())
