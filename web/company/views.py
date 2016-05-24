@@ -8,9 +8,9 @@ def index(request):
     img = CompanyImage.objects.all()
     return render(request, 'index.html', {'img': img})
 
-def main_list(request):
+def main_list(request, companyid):
     companys = Company.objects.all()
-    contents = Content.objects.all()
+    contents = Content.objects.filter(company_name = companyid)
     return render(request, 'company/main_list.html', {'companys': companys, 'contents': contents})
 
 def content_list(request, company_name_pk):

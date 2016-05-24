@@ -14,7 +14,7 @@ class Company(models.Model):
         verbose_name_plural = '公司名称'
 
     def __str__(self):
-        return self.tag
+        return self.company_name
 
 class Author(models.Model):
     author_name = models.CharField(max_length = 50)
@@ -25,7 +25,7 @@ class Author(models.Model):
         verbose_name_plural = '作者'
 
     def __str__(self):
-        return self.name
+        return self.author_name
 
 class Content(models.Model):
     company_name = models.ForeignKey(Company, to_field='companyid', db_column='company_name')

@@ -4,10 +4,10 @@ from .models import Company, Author, Content, CompanyImage
 # Register your models here.
 
 class CompanyAdmin(admin.ModelAdmin):
-    list_display = ('tag', 'tagline')
+    list_display = ('company_name', 'tagline')
 
 class AuthorAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email')
+    list_display = ('author_name', 'email')
 
 class ContentAdmin(admin.ModelAdmin):
     list_display = ('headline', 'company_name', 'created_date', 'pub_date')

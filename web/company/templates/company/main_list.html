@@ -4,33 +4,16 @@
 <!-- http://www.mzan.com/article/36252144-using-for-loop-tag-in-tab-nav-bootstrap-with-django.shtml -->
 <!-- watch out this url to fix the page -->
 
-
-<ul class="nav nav-tabs" role="tablist">
-    {% for company in companys %}
-    <li role="presentation"><a href="{% url 'content_list' pk=company_name_pk%}">{{company.tag}}|{{company.id}}|{{company.pk}}</a></li>
-    {%endfor%}
-</ul>
-
-
-<br/>
-----------------------------------------------------
-<!--
-<div class="tab-content">
-    {% for company in companys%}
-    <div class="tab-pane" id="{{company.id}}">
-        {%for content in contents%}
-        {% if content.company_name.tag == company.tag%}
-        <a href="{% url 'main_detail' pk=content.pk%}">{{content.headline}}</a>
-        {%endif%}
-        {%endfor%}
-    </div>
-
-    {% endfor %}
-
-</div>
--->
-{% for content in contents%}
-{{content.id}}|{{content.pk}}|{{content.company_name.id}}|{{content.company_name.pk}}
+{% for company in companys %}
+<a href="/main_list/{{company.companyid}}">{{company.company_name}}</a>
+{% endfor %}
+<br>
+-------------------------------------------------------------------------------------------------
+<br>
+-------------------------------------------------------------------------------------------------
+<br>
+{% for content in contents %}
+<a href="/main_list/{{content.company_name.companyid}}/{{content.id}}">{{content.headline}}</a>
 {% endfor %}
 
 {%endblock content%}
