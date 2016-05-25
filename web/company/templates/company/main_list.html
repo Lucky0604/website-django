@@ -12,8 +12,32 @@
 <br>
 -------------------------------------------------------------------------------------------------
 <br>
-{% for content in contents %}
-<a href="/main_list/{{content.company_name.companyid}}/{{content.id}}">{{content.headline}}</a>
+{% for list in lists %}
+<a href="/main_list/{{list.company_name.companyid}}/{{list.id}}">{{list.headline}}</a>
 {% endfor %}
+
+<nav>
+  <ul class="pagination">
+    <li>
+      {% if lists.has_previous %}
+      <a href="?page={{lists.previous_page_number}}" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+      {% endif%}
+    </li>
+
+    <li>
+      <a href="#">Page {{lists.number}} of {{lists.paginator.num_pages}}</a>
+    </li>
+
+    <li>
+      {% if lists.has_next %}
+      <a href="?page={{lists.next_page_number}}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+      {% endif %}
+    </li>
+  </ul>
+</nav>
 
 {%endblock content%}

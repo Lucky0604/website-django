@@ -11,7 +11,17 @@ def index(request):
 def main_list(request, companyid):
     companys = Company.objects.all()
     contents = Content.objects.filter(company_name = companyid)
-    return render(request, 'company/main_list.html', {'companys': companys, 'contents': contents})
+    paginator = Paginator(contents, 1)
+    page = request.GET.get('page')
+
+    try:
+        lists = paginator.page(page)
+    except PageNotAnInteger:
+        lists = paginator.page(1)
+    except EmptyPage:
+        lists = paginator.page(paginator.num_pages)
+
+    return render(request, 'company/main_list.html', {'companys': companys, 'lists': lists})
 
 def content_list(request, company_name_pk):
     content = Content.objects.filter(company_name_pk)
