@@ -13,7 +13,6 @@ def main_list(request, companyid):
     contents = Content.objects.filter(company_name = companyid)
     paginator = Paginator(contents, 1)
     page = request.GET.get('page')
-
     try:
         lists = paginator.page(page)
     except PageNotAnInteger:
