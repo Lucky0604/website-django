@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'', include('company.urls')),
     url(r'^intro/$', include('intro.urls')),
     url(r'^tinymce/', include('tinymce.urls')),
+    url('^mce_filebrowser/', include('mce_filebrowser.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
