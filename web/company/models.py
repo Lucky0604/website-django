@@ -32,7 +32,7 @@ class Content(models.Model):
     company_name = models.ForeignKey(Company, to_field='companyid', db_column='company_name')
     headline = models.CharField(max_length = 255)
     body_text = HTMLField()
-    created_date = models.DateTimeField(default = timezone.now())
+    created_date = models.DateTimeField(default = timezone.now)
     pub_date = models.DateTimeField(blank = True, null = True)
     authors = models.ManyToManyField(Author)
 

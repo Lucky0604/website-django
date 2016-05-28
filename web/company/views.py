@@ -6,12 +6,21 @@ from .models import Company, Author, Content, CompanyImage
 
 def index(request):
     img = CompanyImage.objects.all()
-    return render(request, 'index.html', {'img': img})
+    lists = Content.objects.order_by('-created_date')
+    pagenator = Paginator(lists, 5)
+    page = request.GET.get('page')
+    try:
+        company_contents = pagenator.page(page)
+    except PageNotAnInteger:
+        company_contents = pagenator.page(1)
+    except EmptyPage:
+        company_contents = paginator.page(pagenator.num_pages)
+    return render(request, 'index.html', {'img': img, 'company_contents': company_contents})
 
 def main_list(request, companyid):
     companys = Company.objects.all()
     contents = Content.objects.filter(company_name = companyid)
-    paginator = Paginator(contents, 1)
+    paginator = Paginator(contents, 10)
     page = request.GET.get('page')
     try:
         lists = paginator.page(page)
