@@ -41,6 +41,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'intro.apps.IntroConfig',
     'company.apps.CompanyConfig',
+    'culture.apps.CultureConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
