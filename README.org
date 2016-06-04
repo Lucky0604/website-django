@@ -1,0 +1,6 @@
+* Some tips about deployment use *nginx*
+
+** install uwsgi module
+#+BEGIN_SRC python
+  pip install uwsgi
+#+END_SRC

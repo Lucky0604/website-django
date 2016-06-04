@@ -1,0 +1,11 @@
+Django==1.8.4
+django-bootstrap-pagination==1.6.1
+django-tinymce==2.3.0
+Django-tinymce-filebrowser==0.2.1
+jedi==0.8.1
+json-rpc==1.8.1
+Pillow==2.8.0
+PyMySQL==0.7.2
+service-factory==0.1.2
+six==1.10.0
+sorl-thumbnail==12.3
