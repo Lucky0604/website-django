@@ -4,3 +4,110 @@
 #+BEGIN_SRC python
   pip install uwsgi
 #+END_SRC
+
+** 测试uWSGI是否正常
+#+BEGIN_SRC shell
+  uwsgi --http :8000 --module web.wsgi
+#+END_SRC
+参数含义:
+- *http :8000*: 使用http协议，8000端口
+- *module web.wsgi* 加载wsgi module
+
+** 配置nginx
+安装nginx完成后，如果能正常打开http://hostname, it will be ok.
+*** 增加nginx配置
+- 将uwsgi_params文件拷贝到项目文件夹下。uwsgi_params文件在/etc/nginx/目录下
+- 在项目文件夹下创建文件mysite_nginx.conf,填入并修改下面内容
+#+BEGIN_SRC shell
+  # mysite_nginx.conf
+
+  # the upstream component nginx needs to connect to
+  upstream django {
+      # server unix:///path/to/your/mysite/mysite.sock; # for a file socket
+      server 127.0.0.1:8001; # for a web port socket (we'll use this first)
+  }
+  # configuration of the server
+  server {
+      # the port your site will be served on
+      listen      8000;
+      # the domain name it will serve for
+      server_name .example.com; # substitute your machine's IP address or FQDN
+      charset     utf-8;
+
+      # max upload size
+      client_max_body_size 75M;   # adjust to taste
+
+      # Django media
+      location /media  {
+          alias /path/to/your/mysite/media;  # your Django project's media files - amend as required
+      }
+
+      location /static {
+          alias /path/to/your/mysite/static; # your Django project's static files - amend as required
+      }
+
+      # Finally, send all non-media requests to the Django server.
+      location / {
+          uwsgi_pass  django;
+          include     /path/to/your/mysite/uwsgi_params; # the uwsgi_params file you installed
+      }
+  }
+#+END_SRC
+
+*** 在/etc/nginx/sites-enabled目录下创建本文件的连接，使nginx能够使用它
+#+BEGIN_SRC shell
+  sudo ln -s ~/path/to/your/mysite/mysite_nginx.conf /etc/nginx/sites-enabled/
+#+END_SRC
+
+*web_nginx.conf* for my project
+#+INCLUDE "web/web_nginx.conf" src shell
+
+*** 部署static文件
+在django的setting文件中，添加下面一行内容
+#+BEGIN_SRC python
+  STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+#+END_SRC
+然后运行
+#+BEGIN_SRC shell
+  python manage.py collectstatic
+#+END_SRC
+
+** nginx and uWSGI and project
+执行下面代码测试
+#+BEGIN_SRC shell
+  uwsgi --socket :8001 --module web.sock
+#+END_SRC
+
+*** 用UNIX socket取代TCP port
+对mysite_nginx.conf做如下修改
+#+BEGIN_SRC shell
+  server unix:///path/to/your/mysite/mysite.sock; # for a file socket
+  # server 127.0.0.1:8001; # for a web port socket (we'll use this first)
+#+END_SRC
+重启nginx，并在此运行uWSGI
+#+BEGIN_SRC shell
+  uwsgi --socket mysite.sock --module web.wsgi
+#+END_SRC
+打开 http://localhost:8000/ ，看看是否成功
+
+如果没有成功,检查 nginx error log(/var/log/nginx/error.log)。如果错误如下:
+#+BEGIN_SRC shell
+  connect() to unix:///path/to/your/mysite/mysite.sock failed (13: Permission denied)
+#+END_SRC
+添加socket权限再次运行
+#+BEGIN_SRC shell
+  uwsgi --socket mysite.sock --module web.wsgi --chmod-socket=666 # (very permissive)
+#+END_SRC
+
+** Running the Django application with uswgi and nginx
+*** Configuring uWSGI to run with a .ini file
+#+INCLUDE "web/web_uwsgi.ini" src shell
+现在，只要执行以下命令，就能够拉起django application
+#+BEGIN_SRC shell
+  uwsgi --ini mysite_uwsgi.ini # the --ini option is used to specify a file
+#+END_SRC
+*** Make uWSGI startup when the system boots
+编辑文件/etc/rc.local, 添加下面内容到这行代码之前exit 0:
+#+BEGIN_SRC shell
+  /usr/local/bin/uwsgi --socket /path/to/mysite.sock --module /path/to/mysite.wsgi --chmod-socket=666
+#+END_SRC

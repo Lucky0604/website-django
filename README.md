@@ -74,3 +74,4 @@ templates中显示图片
 `Done`
 3，增加新闻列表分页
 `Done`
+
